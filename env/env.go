@@ -2,13 +2,15 @@ package env
 
 import "runtime"
 
+type Env = string
+
 const (
-	prod    = "prod"
-	boe     = "boe"
-	unknown = "unknown"
+	prod    Env = "prod"
+	boe     Env = "boe"
+	unknown Env = "unknown"
 )
 
-func GetEnv() string {
+func GetEnv() Env {
 	sysType := runtime.GOOS
 
 	if sysType == "linux" {
