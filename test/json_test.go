@@ -1,7 +1,7 @@
 package test
 
 import (
-	"common/json"
+	"github.com/qcq1/common/json"
 	"log"
 	"testing"
 )
