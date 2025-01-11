@@ -5,28 +5,28 @@ import "runtime"
 type Env = string
 
 const (
-	prod    Env = "prod"
-	boe     Env = "boe"
-	unknown Env = "unknown"
+	Prod    Env = "prod"
+	Boe     Env = "boe"
+	Unknown Env = "unknown"
 )
 
 func GetEnv() Env {
 	sysType := runtime.GOOS
 
 	if sysType == "linux" {
-		return prod
+		return Prod
 	}
 
 	if sysType == "windows" {
-		return boe
+		return Boe
 	}
-	return unknown
+	return Unknown
 }
 
 func IsProd() bool {
-	return GetEnv() == prod
+	return GetEnv() == Prod
 }
 
 func IsBoe() bool {
-	return GetEnv() == boe
+	return GetEnv() == Boe
 }
