@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/qcq1/common/choose"
+	"github.com/qcq1/common/env"
 )
 
 type OptionsStruct struct {
@@ -39,5 +40,5 @@ func BuildK8sDestServiceName(opts ...Option) string {
 		opt(options)
 	}
 
-	return choose.If(len(options.destServiceName) == 0, options.boeDestServiceName, options.destServiceName)
+	return choose.If(env.IsProd(), options.destServiceName, options.boeDestServiceName)
 }
