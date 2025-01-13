@@ -5,9 +5,8 @@ import "runtime"
 type Env = string
 
 const (
-	Prod    Env = "prod"
-	Boe     Env = "boe"
-	Unknown Env = "unknown"
+	Prod Env = "prod"
+	Boe  Env = "boe"
 )
 
 func GetEnv() Env {
@@ -20,7 +19,7 @@ func GetEnv() Env {
 	if sysType == "windows" {
 		return Boe
 	}
-	return Unknown
+	return Boe
 }
 
 func IsProd() bool {
