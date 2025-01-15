@@ -14,8 +14,8 @@ const (
 )
 
 type RawCallInterface[T any] interface {
-	setClient(T)
-	setRetryPolicy(*retry.FailurePolicy)
+	SetClient(T)
+	SetRetryPolicy(*retry.FailurePolicy)
 }
 
 type newClientFunc[T any] func(destService string, opts ...client.Option) (T, error)
@@ -31,12 +31,12 @@ func NewClient[T any](newClient newClientFunc[T], destService string, RawCall Ra
 		client.WithResolver(resolver.NewNacosResolver(cli)),
 		client.WithMiddleware(kitex_middleware.LogMiddleware),
 	)
-	RawCall.setClient(destClient)
+	RawCall.SetClient(destClient)
 	if err != nil {
 		logger.Errorf("[Init] minercore.NewClient failed, err = %v", err)
 		panic(err)
 	}
 	rp := retry.NewFailurePolicy()
 	rp.WithMaxRetryTimes(MaxRetryTimes)
-	RawCall.setRetryPolicy(rp)
+	RawCall.SetRetryPolicy(rp)
 }
