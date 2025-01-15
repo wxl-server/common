@@ -7,6 +7,7 @@ require (
 	github.com/cloudwego/kitex v0.12.1
 	github.com/kitex-contrib/registry-nacos v0.1.2
 	github.com/nacos-group/nacos-sdk-go v1.1.5
+	github.com/sony/sonyflake v1.2.0
 )
 
 require (
