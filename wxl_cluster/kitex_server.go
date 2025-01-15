@@ -21,7 +21,7 @@ func NewServer[T any](newServer newServerFunc[T], handler T, serverName string) 
 	options := make([]server.Option, 0)
 	// boe 环境下指定服务地址
 	if env.IsBoe() {
-		host := "127.0.0.1"
+		host := ""
 		port := 8888
 		retry := 0
 		for {
