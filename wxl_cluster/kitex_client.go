@@ -18,9 +18,9 @@ type RawCallStruct[T any] struct {
 	rp     *retry.FailurePolicy
 }
 
-type newClientFunc func(destService string, opts ...client.Option) (any, error)
+type newClientFunc[T any] func(destService string, opts ...client.Option) (T, error)
 
-func NewClient[T any](newClient newClientFunc, destService string) *RawCallStruct[T] {
+func NewClient[T any](newClient newClientFunc[T], destService string) *RawCallStruct[T] {
 	RawCall := &RawCallStruct[T]{}
 
 	cli, err := nacos.NewNacosClient()
