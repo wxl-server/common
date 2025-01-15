@@ -3,24 +3,14 @@ package wxl_cluster
 import (
 	"github.com/bytedance/gopkg/util/logger"
 	"github.com/cloudwego/kitex/client"
-	"github.com/cloudwego/kitex/pkg/retry"
 	"github.com/kitex-contrib/registry-nacos/resolver"
 	"github.com/qcq1/common/wxl_cluster/kitex_middleware"
 	"github.com/qcq1/common/wxl_cluster/nacos"
 )
 
-const (
-	MaxRetryTimes = 3
-)
-
-type RawCallInterface[T any] interface {
-	SetClient(T)
-	SetRetryPolicy(*retry.FailurePolicy)
-}
-
 type newClientFunc[T any] func(destService string, opts ...client.Option) (T, error)
 
-func NewClient[T any](newClient newClientFunc[T], destService string, RawCall RawCallInterface[T]) {
+func NewClient[T any](newClient newClientFunc[T], destService string) T {
 	cli, err := nacos.NewNacosClient()
 	if err != nil {
 		logger.Errorf("[Init] clients.NewNamingClient failed, err = %v", err)
@@ -31,12 +21,9 @@ func NewClient[T any](newClient newClientFunc[T], destService string, RawCall Ra
 		client.WithResolver(resolver.NewNacosResolver(cli)),
 		client.WithMiddleware(kitex_middleware.LogMiddleware),
 	)
-	RawCall.SetClient(destClient)
 	if err != nil {
 		logger.Errorf("[Init] minercore.NewClient failed, err = %v", err)
 		panic(err)
 	}
-	rp := retry.NewFailurePolicy()
-	rp.WithMaxRetryTimes(MaxRetryTimes)
-	RawCall.SetRetryPolicy(rp)
+	return destClient
 }
