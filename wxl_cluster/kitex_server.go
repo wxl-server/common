@@ -7,12 +7,9 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	server "github.com/cloudwego/kitex/server"
 	"github.com/kitex-contrib/registry-nacos/registry"
-	"github.com/nacos-group/nacos-sdk-go/clients"
-	"github.com/nacos-group/nacos-sdk-go/common/constant"
-	"github.com/nacos-group/nacos-sdk-go/vo"
-	"github.com/qcq1/common/choose"
 	"github.com/qcq1/common/env"
 	"github.com/qcq1/common/wxl_cluster/kitex_middleware"
+	"github.com/qcq1/common/wxl_cluster/nacos"
 )
 
 type newServerFunc[T any] func(handler T, opts ...server.Option) server.Server
@@ -31,18 +28,7 @@ func NewServer[T any](newServer newServerFunc[T], handler T, serverName string, 
 	}
 
 	// 注册服务到nacos
-	cli, err := clients.NewNamingClient(
-		vo.NacosClientParam{
-			ClientConfig: &constant.ClientConfig{
-				NamespaceId: choose.If(env.IsProd(), "public", "boe"),
-				Username:    "nacos",
-				Password:    "wxl5211314",
-			},
-			ServerConfigs: []constant.ServerConfig{
-				*constant.NewServerConfig("wxl475.cn", 30898),
-			},
-		},
-	)
+	cli, err := nacos.NewNacosClient()
 	if err != nil {
 		panic(err)
 	}
