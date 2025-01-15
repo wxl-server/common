@@ -17,25 +17,17 @@ import (
 
 type newServerFunc[T any] func(handler T, opts ...server.Option) server.Server
 
-func NewServer[T any](newServer newServerFunc[T], handler T, serverName string) {
+func NewServer[T any](newServer newServerFunc[T], handler T, serverName string, boePort int) {
 	options := make([]server.Option, 0)
 	// boe 环境下指定服务地址
 	if env.IsBoe() {
 		host := ""
-		port := 8888
-		retry := 0
-		for {
-			addr, err := net.ResolveTCPAddr("tcp", buildHostPort(host, port))
-			if err != nil && retry >= 10 {
-				panic(err)
-			} else if err != nil {
-				port += 1
-				retry += 1
-			} else {
-				options = append(options, server.WithServiceAddr(addr))
-				break
-			}
+		port := boePort
+		addr, err := net.ResolveTCPAddr("tcp", buildHostPort(host, port))
+		if err != nil {
+			panic(err)
 		}
+		options = append(options, server.WithServiceAddr(addr))
 	}
 
 	// 注册服务到nacos
