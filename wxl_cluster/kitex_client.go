@@ -21,7 +21,7 @@ type RawCallInterface[T any] interface {
 
 type newClientFunc[T any] func(destService string, opts ...client.Option) (T, error)
 
-func NewClient[T any, M any](newClient newClientFunc[T], destService string, RawCall *RawCallInterface[T]) {
+func NewClient[T any](newClient newClientFunc[T], destService string, RawCall *RawCallInterface[T]) {
 	cli, err := nacos.NewNacosClient()
 	if err != nil {
 		logger.Errorf("[Init] clients.NewNamingClient failed, err = %v", err)
