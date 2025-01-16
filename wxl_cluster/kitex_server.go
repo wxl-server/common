@@ -36,7 +36,7 @@ func NewServer[T any](newServer newServerFunc[T], handler T, serverName string, 
 	options = append(options, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: serverName}))
 
 	// 日志中间件
-	options = append(options, server.WithMiddleware(kitex_middleware.LogMiddleware))
+	options = append(options, server.WithMiddleware(kitex_middleware.ServerLogMiddleware))
 
 	// 启动服务
 	svr := newServer(handler, options...)

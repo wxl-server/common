@@ -19,7 +19,7 @@ func NewClient[T any](newClient newClientFunc[T], destService string) T {
 	destClient, err := newClient(
 		destService,
 		client.WithResolver(resolver.NewNacosResolver(cli)),
-		client.WithMiddleware(kitex_middleware.LogMiddleware),
+		client.WithMiddleware(kitex_middleware.ClientLogMiddleware),
 	)
 	if err != nil {
 		logger.Errorf("[Init] minercore.NewClient failed, err = %v", err)
