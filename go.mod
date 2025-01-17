@@ -1,4 +1,4 @@
-module github.com/qcq1/common
+module github.com/wxl-server/common
 
 go 1.20
 
