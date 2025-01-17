@@ -1,6 +1,6 @@
 module github.com/wxl-server/common
 
-go 1.20
+go 1.23
 
 require (
 	github.com/bytedance/gopkg v0.1.1
