@@ -4,8 +4,8 @@ import (
 	"github.com/bytedance/gopkg/util/logger"
 	"github.com/cloudwego/kitex/client"
 	"github.com/kitex-contrib/registry-nacos/resolver"
-	"github.com/qcq1/common/wxl_cluster/kitex_middleware"
-	"github.com/qcq1/common/wxl_cluster/nacos"
+	"github.com/wxl-server/common/wxl_cluster/kitex_middleware"
+	"github.com/wxl-server/common/wxl_cluster/nacos"
 )
 
 type newClientFunc[T any] func(destService string, opts ...client.Option) (T, error)

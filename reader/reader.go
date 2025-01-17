@@ -1,8 +1,8 @@
 package reader
 
 import (
-	"github.com/qcq1/common/env"
 	"github.com/spf13/viper"
+	"github.com/wxl-server/common/env"
 )
 
 func InitAppConfig[T any]() *T {

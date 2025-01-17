@@ -1,6 +1,6 @@
 package gptr
 
-import "github.com/qcq1/common/gvalue"
+import "github.com/wxl-server/common/gvalue"
 
 func Of[T any](v T) *T {
 	return &v

@@ -6,7 +6,7 @@ import (
 	"github.com/bytedance/gopkg/util/logger"
 	"github.com/cloudwego/kitex/pkg/endpoint"
 	"github.com/cloudwego/kitex/pkg/utils"
-	"github.com/qcq1/common/render"
+	"github.com/wxl-server/common/render"
 )
 
 func ServerLogMiddleware(next endpoint.Endpoint) endpoint.Endpoint {

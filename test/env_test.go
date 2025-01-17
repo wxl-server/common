@@ -1,7 +1,7 @@
 package test
 
 import (
-	"github.com/qcq1/common/env"
+	"github.com/wxl-server/common/env"
 	"log"
 	"testing"
 )

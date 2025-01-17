@@ -5,8 +5,8 @@ import (
 	"github.com/nacos-group/nacos-sdk-go/clients/naming_client"
 	"github.com/nacos-group/nacos-sdk-go/common/constant"
 	"github.com/nacos-group/nacos-sdk-go/vo"
-	"github.com/qcq1/common/choose"
-	"github.com/qcq1/common/env"
+	"github.com/wxl-server/common/choose"
+	"github.com/wxl-server/common/env"
 )
 
 func NewNacosClient() (naming_client.INamingClient, error) {
