@@ -40,3 +40,35 @@ func GroupBy[T any, K comparable](s []T, f func(T) K) (r map[K][]T) {
 	}
 	return
 }
+
+func Union[T comparable](ss ...[]T) []T {
+	if len(ss) == 0 {
+		return []T{}
+	}
+	if len(ss) == 1 {
+		return Uniq(ss[0])
+	}
+	seen := make(map[T]bool)
+	result := []T{}
+	for _, s := range ss {
+		for _, v := range s {
+			if _, exists := seen[v]; !exists {
+				seen[v] = true
+				result = append(result, v)
+			}
+		}
+	}
+	return result
+}
+
+func Uniq[T comparable](s []T) []T {
+	seen := make(map[T]bool)
+	var result []T
+	for _, v := range s {
+		if _, exists := seen[v]; !exists {
+			seen[v] = true
+			result = append(result, v)
+		}
+	}
+	return result
+}
