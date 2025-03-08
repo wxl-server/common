@@ -72,3 +72,11 @@ func Uniq[T comparable](s []T) []T {
 	}
 	return result
 }
+
+func GetValueOrZero[T any](s []T, index int) T {
+	if index < 0 || index >= len(s) {
+		var zero T
+		return zero
+	}
+	return s[index]
+}
