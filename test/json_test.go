@@ -1,9 +1,10 @@
 package test
 
 import (
-	"github.com/wxl-server/common/json"
 	"log"
 	"testing"
+
+	"github.com/wxl-server/common/json"
 )
 
 func TestJson(t *testing.T) {
@@ -28,4 +29,16 @@ func TestJson(t *testing.T) {
 	}
 	testStruct4 := json.UnmarshalWithoutError[TestStruct2](jsonStr)
 	log.Print(json.MarshalWithoutError[string](testStruct4))
+
+	var nilSlice []string
+	jsonStr = json.MarshalWithoutError[string](nilSlice)
+	log.Print(jsonStr)
+
+	var nilMap map[string]string
+	jsonStr = json.MarshalWithoutError[string](nilMap)
+	log.Print(jsonStr)
+
+	var nilStruct *TestStruct
+	jsonStr = json.MarshalWithoutError[string](nilStruct)
+	log.Print(jsonStr)
 }

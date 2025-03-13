@@ -80,3 +80,20 @@ func GetValueOrZero[T any](s []T, index int) T {
 	}
 	return s[index]
 }
+
+func BatchDo[T any](s []T, batchSize int, f func([]T) error) error {
+	if batchSize <= 0 {
+		return nil
+	}
+	for i := 0; i < len(s); i += batchSize {
+		end := i + batchSize
+		if end > len(s) {
+			end = len(s)
+		}
+		err := f(s[i:end])
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
