@@ -18,7 +18,7 @@ func NewServer[T any](newServer newServerFunc[T], handler T, serverName string, 
 	options := make([]server.Option, 0)
 	// boe 环境下指定服务地址
 	if env.IsBoe() {
-		host := ""
+		host := "127.0.0.1"
 		port := boePort
 		addr, err := net.ResolveTCPAddr("tcp", buildHostPort(host, port))
 		if err != nil {
