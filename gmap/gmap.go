@@ -16,8 +16,9 @@ func Keys[K comparable, V any](m map[K]V) []K {
 	return keys
 }
 
-func Append[K comparable, V any](m1 map[K]V, m2 map[K]V) {
+func Append[K comparable, V any](m1 map[K]V, m2 map[K]V) map[K]V {
 	for k, v := range m2 {
 		m1[k] = v
 	}
+	return m1
 }
