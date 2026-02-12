@@ -2,7 +2,6 @@ package goroutine
 
 import (
 	"context"
-	"time"
 
 	"github.com/bytedance/gopkg/util/logger"
 )
@@ -28,7 +27,6 @@ func SafeGo(ctx context.Context, f func(), options ...Option) {
 			if r == nil {
 				break
 			}
-			time.Sleep(cfg.interval)
 		}
 	}()
 }
@@ -54,7 +52,6 @@ func SafeGoWithParam[T any](ctx context.Context, f func(T), arg T, options ...Op
 			if r == nil {
 				break
 			}
-			time.Sleep(cfg.interval)
 		}
 	}()
 }
@@ -82,7 +79,6 @@ func MustGo(ctx context.Context, f func(), options ...Option) {
 			} else if retry == cfg.retryLimit {
 				panic(r)
 			}
-			time.Sleep(cfg.interval)
 		}
 	}()
 }
@@ -110,7 +106,6 @@ func MustGoWithParam[T any](ctx context.Context, f func(T), arg T, options ...Op
 			} else if retry == cfg.retryLimit {
 				panic(r)
 			}
-			time.Sleep(cfg.interval)
 		}
 	}()
 }
