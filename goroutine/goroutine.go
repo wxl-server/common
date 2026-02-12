@@ -8,7 +8,7 @@ import (
 )
 
 // SafeGo 启动Goroutine，panic后会recover
-func SafeGo(ctx context.Context, f func() error, options ...Option) {
+func SafeGo(ctx context.Context, f func(), options ...Option) {
 	go func() {
 		cfg := &config{}
 		for _, option := range options {
@@ -16,20 +16,16 @@ func SafeGo(ctx context.Context, f func() error, options ...Option) {
 		}
 		var r any
 		for retry := 0; retry <= cfg.retryLimit; retry++ {
-			err := func() error {
+			func() {
 				defer func() {
 					if r = recover(); r != nil {
 						logger.CtxErrorf(ctx, "Goroutine Panic: %v", r)
 						panic(r)
 					}
 				}()
-				err := f()
-				if err != nil {
-					return err
-				}
-				return nil
+				f()
 			}()
-			if r == nil && err == nil {
+			if r == nil {
 				break
 			}
 			time.Sleep(cfg.interval)
@@ -38,7 +34,7 @@ func SafeGo(ctx context.Context, f func() error, options ...Option) {
 }
 
 // SafeGoWithParam 启动Goroutine，panic后会recover
-func SafeGoWithParam[T any](ctx context.Context, f func(T) error, arg T, options ...Option) {
+func SafeGoWithParam[T any](ctx context.Context, f func(T), arg T, options ...Option) {
 	go func() {
 		cfg := &config{}
 		for _, option := range options {
@@ -46,20 +42,16 @@ func SafeGoWithParam[T any](ctx context.Context, f func(T) error, arg T, options
 		}
 		var r any
 		for retry := 0; retry <= cfg.retryLimit; retry++ {
-			err := func() error {
+			func() {
 				defer func() {
 					if r = recover(); r != nil {
 						logger.CtxErrorf(ctx, "Goroutine Panic: %v", r)
 						panic(r)
 					}
 				}()
-				err := f(arg)
-				if err != nil {
-					return err
-				}
-				return nil
+				f(arg)
 			}()
-			if r == nil && err == nil {
+			if r == nil {
 				break
 			}
 			time.Sleep(cfg.interval)
@@ -68,7 +60,7 @@ func SafeGoWithParam[T any](ctx context.Context, f func(T) error, arg T, options
 }
 
 // MustGo 启动Goroutine，panic后会透传出去
-func MustGo(ctx context.Context, f func() error, options ...Option) {
+func MustGo(ctx context.Context, f func(), options ...Option) {
 	go func() {
 		cfg := &config{}
 		for _, option := range options {
@@ -76,22 +68,18 @@ func MustGo(ctx context.Context, f func() error, options ...Option) {
 		}
 		var r any
 		for retry := 0; retry <= cfg.retryLimit; retry++ {
-			err := func() error {
+			func() {
 				defer func() {
 					if r = recover(); r != nil {
 						logger.CtxErrorf(ctx, "Goroutine Panic: %v", r)
 						panic(r)
 					}
 				}()
-				err := f()
-				if err != nil {
-					return err
-				}
-				return nil
+				f()
 			}()
-			if r == nil && err == nil {
+			if r == nil {
 				break
-			} else if r != nil && retry == cfg.retryLimit {
+			} else if retry == cfg.retryLimit {
 				panic(r)
 			}
 			time.Sleep(cfg.interval)
@@ -100,7 +88,7 @@ func MustGo(ctx context.Context, f func() error, options ...Option) {
 }
 
 // MustGoWithParam 启动Goroutine，panic后会透传出去
-func MustGoWithParam[T any](ctx context.Context, f func(T) error, arg T, options ...Option) {
+func MustGoWithParam[T any](ctx context.Context, f func(T), arg T, options ...Option) {
 	go func() {
 		cfg := &config{}
 		for _, option := range options {
@@ -108,22 +96,18 @@ func MustGoWithParam[T any](ctx context.Context, f func(T) error, arg T, options
 		}
 		var r any
 		for retry := 0; retry <= cfg.retryLimit; retry++ {
-			err := func() error {
+			func() {
 				defer func() {
 					if r = recover(); r != nil {
 						logger.CtxErrorf(ctx, "Goroutine Panic: %v", r)
 						panic(r)
 					}
 				}()
-				err := f(arg)
-				if err != nil {
-					return err
-				}
-				return nil
+				f(arg)
 			}()
-			if r == nil && err == nil {
+			if r == nil {
 				break
-			} else if r != nil && retry == cfg.retryLimit {
+			} else if retry == cfg.retryLimit {
 				panic(r)
 			}
 			time.Sleep(cfg.interval)
