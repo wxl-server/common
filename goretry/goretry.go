@@ -1,14 +1,15 @@
 package goretry
 
 import (
-	"context"
 	"time"
 
 	"github.com/wxl-server/common/gptr"
 )
 
-func Do(ctx context.Context, f func(retryTimes int64) error, options ...Option) error {
-	cfg := &config{}
+func Do(f func(retryTimes int64) error, options ...Option) error {
+	cfg := &config{
+		retryLimit: gptr.Of(int64(0)),
+	}
 	for _, option := range options {
 		option(cfg)
 	}
