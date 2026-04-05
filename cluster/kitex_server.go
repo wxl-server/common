@@ -1,4 +1,4 @@
-package wxl_cluster
+package cluster
 
 import (
 	"net"
@@ -7,9 +7,9 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	server "github.com/cloudwego/kitex/server"
 	"github.com/kitex-contrib/registry-nacos/registry"
+	"github.com/wxl-server/common/cluster/kitex_middleware"
+	"github.com/wxl-server/common/cluster/nacos"
 	"github.com/wxl-server/common/env"
-	"github.com/wxl-server/common/wxl_cluster/kitex_middleware"
-	"github.com/wxl-server/common/wxl_cluster/nacos"
 )
 
 type newServerFunc[T any] func(handler T, opts ...server.Option) server.Server

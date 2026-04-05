@@ -1,11 +1,11 @@
-package wxl_cluster
+package cluster
 
 import (
 	"github.com/bytedance/gopkg/util/logger"
 	"github.com/cloudwego/kitex/client"
 	"github.com/kitex-contrib/registry-nacos/resolver"
-	"github.com/wxl-server/common/wxl_cluster/kitex_middleware"
-	"github.com/wxl-server/common/wxl_cluster/nacos"
+	"github.com/wxl-server/common/cluster/kitex_middleware"
+	"github.com/wxl-server/common/cluster/nacos"
 )
 
 type newClientFunc[T any] func(destService string, opts ...client.Option) (T, error)
